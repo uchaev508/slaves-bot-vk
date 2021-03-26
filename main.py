@@ -61,7 +61,8 @@ def jobSlave(slave_id):
      'name':job_name})
     headers = {'sec-ch-ua':'"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"', 
      'authorization':authorization, 
-     'sec-ch-ua-mobile':'?0',
+     'sec-ch-ua-mobile':'?0', 
+     'content-type':'application/json',
      'origin':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com',
      'referer':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com/',
      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
@@ -73,7 +74,8 @@ def buyFetter(slave_id):
     payload = json.dumps({'slave_id': slave_id})
     headers = {'sec-ch-ua':'"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"', 
      'authorization':authorization, 
-     'sec-ch-ua-mobile':'?0',
+     'sec-ch-ua-mobile':'?0', 
+     'content-type':'application/json',
      'origin':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com',
      'referer':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com/',
      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
@@ -85,7 +87,8 @@ def buySlave(slave_id):
     payload = json.dumps({'slave_id': slave_id})
     headers = {'sec-ch-ua':'"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"', 
      'authorization':authorization, 
-     'sec-ch-ua-mobile':'?0',
+     'sec-ch-ua-mobile':'?0', 
+     'content-type':'application/json',
      'origin':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com',
      'referer':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com/',
      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
@@ -109,7 +112,8 @@ def saleSlave(slave_id):
     payload = json.dumps({'slave_id': slave_id})
     headers = {'sec-ch-ua':'"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"', 
      'authorization':authorization, 
-     'sec-ch-ua-mobile':'?0',
+     'sec-ch-ua-mobile':'?0', 
+     'content-type':'application/json',
      'origin':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com',
      'referer':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com/',
      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
@@ -178,4 +182,4 @@ while True:
             print(inst)
         finally:
             inst = None
-            del inst 
+            del inst
