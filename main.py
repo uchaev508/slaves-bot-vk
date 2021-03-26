@@ -178,4 +178,4 @@ while True:
             print(inst)
         finally:
             inst = None
-            del inst
+            del inst 
