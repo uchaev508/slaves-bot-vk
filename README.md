@@ -3,13 +3,13 @@
 [Бот для мини-игры ВКонтакте "Рабы"](https://vk.com/app7794757)
 [Тема на Lolzteam](https://lolz.guru/threads/2389937/)
 
-## Какие настройки присутствуют?
-![image](https://i.imgur.com/HEpnGkf.png)
-- Anticooldown. Рандомизация времени на выдачу цепей, покупку рабов и выдачу названвания работы
-- Job_name. Имя работы
+## Какие настройки присутствуют? Настройка в Config.json
+![image](https://i.imgur.com/qfENg1P.png)
+- Min/Max_delay. Рандомизация времени на выдачу цепей, покупку рабов и выдачу названвания работы
+- Job_name. Имя, имена работ
 - Min/Max_price. Минимальная и максимальная цена за которую покупать рабов
-- Buy_slave, True/False. Покупка рабов
-- Buy_fetter, True/False. Покупка оков
+- Buy_slave, true/false. Покупка рабов
+- Buy_fetter, true/false. Покупка оков
 
 ## Флуд в консоль ошибками
 - Error when buying slave, possibly a cooldown. Возможно флуд-контроль на покупку рабов
