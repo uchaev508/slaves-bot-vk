@@ -1,0 +1,11 @@
+{
+	"min_delay": 1,
+	"max_delay": 5,
+     
+	"min_price": 40,
+	"max_price": 60,
+
+	"job_name": ["Вьетнам", "Афганистан", "Украина"],
+	"buy_slave": true,
+	"buy_fetter": true
+}
