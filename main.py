@@ -1,15 +1,20 @@
-import requests, json, schedule, threading, random, time
+# -*- coding: utf-8 -*-
+import requests, json, schedule, threading
+from random import randint, randrange
+from json import load, loads
+from time import sleep
+
+with open("config.json", encoding='utf-8') as f: # cfg
+         config = load(f)
+
 print('Enter your authorization: ')
 authorization = str(input()).rstrip().lstrip()
 
-anticooldown = random.randint(0, 0) # Анти кд, настраивать можете сами.
-job_name = 'Вьетнам' # Имя работы
-
-min_price = 40 # Минимальная цена
-max_price = 1000000 # Максимальная цена
-
-buy_slave = True # Покупать рабов?
-buy_fetter = True # Покупать оковы? 
+job_name = config["job_name"] 
+min_price = config["min_price"] 
+max_price = config["max_price"]
+buy_slave = config["buy_slave"]
+buy_fetter = config["buy_fetter"]
 
 print(f'Job name: {job_name}')
 print(f'Min price: {min_price}, max price: {max_price}')
@@ -63,7 +68,7 @@ def jobSlave(slave_id):
     global job_name
     url = 'https://pixel.w84.vkforms.ru/HappySanta/slaves/1.0.0/jobSlave'
     payload = json.dumps({'slave_id':slave_id, 
-     'name':job_name})
+     'name':job_name[randrange(0, len(job_name))]})
     headers = {'sec-ch-ua':'"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"', 
      'authorization':authorization, 
      'sec-ch-ua-mobile':'?0', 
@@ -152,13 +157,13 @@ def findSlave(slaves):
                 if int(slave['fetter_to']) == 0:
                     if int(slave['price']) >= min_price:
                         if int(slave['price']) <= max_price:
-                            time.sleep(anticooldown)
+                            sleep(randint(config["min_delay"],config["max_delay"]))
                             if buy_slave == True:
                                buySlave(int(str(slave['id']).replace('-','')))
-                               time.sleep(anticooldown)
+                               sleep(randint(config["min_delay"],config["max_delay"]))
                                jobSlave(int(str(slave['id']).replace('-','')))
                                if buy_fetter == True:
-                                  time.sleep(anticooldown)
+                                  sleep(randint(config["min_delay"],config["max_delay"]))
                                   buyFetter(int(str(slave['id']).replace('-','')))
                                   
         if int(slave['slaves_count']) != 0:
@@ -173,19 +178,19 @@ def Profile():
             if buy_slave == True:
                 if int(slave['price']) >= min_price:
                         if int(slave['price']) <= max_price:
-                           time.sleep(anticooldown)
+                           sleep(randint(config["min_delay"],config["max_delay"]))
                            buySlave(int(str(slave['id']).replace('-','')))
     me = myProfile()['me']
     slaves = myProfile()['slaves']
     for slave in slaves:
         print('Profile -> ' + str(slave['id']).replace('-',''))
-        if slave['job']['name'] != job_name:
-            time.sleep(anticooldown)
+        if slave['job']['name'] not in job_name:
+            sleep(randint(config["min_delay"],config["max_delay"]))
             jobSlave(int(str(slave['id']).replace('-','')))
 
         if slave['profit_per_min'] * 60 * slave['fetter_hour'] > slave['fetter_price'] and me['balance'] >= slave['fetter_price'] and slave['fetter_to'] == 0:
             if buy_fetter == True:
-                           time.sleep(anticooldown)
+                           sleep(randint(config["min_delay"],config["max_delay"]))
                            buyFetter(int(str(slave['id']).replace('-','')))
 
 def ThreadProfile():
@@ -212,3 +217,4 @@ while True:
         finally:
             inst = None
             del inst
+
