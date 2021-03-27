@@ -17,7 +17,7 @@
 - Error when buying fetter, possibly a cooldown. Возможно флуд-контроль на покупку оков
 ![image](https://i.imgur.com/E0GDfzN.png)
 
-## Запуск скрипта на Windows:
+## Запуск скрипта на Windows
 - Скачать архив с репозитория
 - Установить Python последней версии http://python.org
 - Поставить галочку ADD TO PATH
@@ -25,6 +25,21 @@
 - Запустить скрипт
 - Ввести ключ:
 ![image](https://i.imgur.com/mZODDE7.png)
+
+## Установка на Android
+- Устанавливаем Termux с Play Market
+- Запускаем Termux
+- Пишем pkg install -y git
+- Далее git clone https://github.com/vuchaev2015/slaves-bot-vk
+- cd slaves-bot-vk
+- pkg install -y python
+- Как установилось пишем pip install -r requirements.txt
+- И наконец, после установки модулей пишем python main.py
+![image](https://i.imgur.com/P5dqSNS.png)
+- Ключ получить можно по инструкции ниже
+Небольшая рофляночка, если хотите получить ключ авторизации нужно попросить друга у которого есть доступ к ПК или самому достать его с ПК :)
+P.S Редактировать конфиг можно командой nano config.json
+![image](https://i.imgur.com/AnX1Cif.png)
 
 ## Как получить ключ?
 - Заходим в приложение ["Рабы"](https://vk.com/app7794757)
@@ -37,6 +52,7 @@
 
 ## Планы на будущее
 - <del>Добавить рандомизацию при установке работ</del> Добавлено!
+- Добавить более удобную и автоматизированную установку на Termux
 
 ## Информация о последнем обновлении
 - Добавлен конфиг для более удобной работы
