@@ -72,6 +72,12 @@ def jobSlave(slave_id):
      'referer':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com/',
      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
     response = requests.request('POST', url, headers=headers, data=payload)
+    if response.status_code == 422:
+        print(f'Error when installing the job, possibly cooldown. Slave: {slave_id}')
+    elif response.status_code == 200:
+        print(f'Set job: {slave_id}') 
+    else:
+        print(f'Unknown error. Slave: {slave_id}')
     return response.json()
 
 def buyFetter(slave_id):
@@ -85,6 +91,12 @@ def buyFetter(slave_id):
      'referer':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com/',
      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
     response = requests.request('POST', url, headers=headers, data=payload)
+    if response.status_code == 422:
+        print(f'Error when buying fetter, possibly a cooldown. Slave: {slave_id}')
+    elif response.status_code == 200:
+        print(f'Buy fetter: {slave_id}') 
+    else:
+        print(f'Unknown error. Slave: {slave_id}')
     return response.json()
 
 def buySlave(slave_id):
@@ -98,6 +110,12 @@ def buySlave(slave_id):
      'referer':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com/',
      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
     response = requests.request('POST', url, headers=headers, data=payload)
+    if response.status_code == 422:
+        print(f'Error when buying slave, possibly a cooldown. Slave: {slave_id}')
+    elif response.status_code == 200:
+        print(f'Buy: {slave_id}') 
+    else:
+        print(f'Unknown error. Slave: {slave_id}')
     return response.json()
 
 def slaveList(user_id):
@@ -128,7 +146,7 @@ def saleSlave(slave_id):
 def findSlave(slaves):
     for slave in slaves:
         schedule.run_pending()
-        print('Slave:', str(slave['id']))
+        print('Slave:', str(slave['id']).replace('-',''))
         if int(slave['profit_per_min']) * 60 * int(slave['fetter_hour']) > int(slave['fetter_price']):
             if int(myProfile()['me']['balance']) >= int(slave['fetter_price']):
                 if int(slave['fetter_to']) == 0:
@@ -136,38 +154,39 @@ def findSlave(slaves):
                         if int(slave['price']) <= max_price:
                             time.sleep(anticooldown)
                             if buy_slave == True:
-                               slaveid = str(slave['id']).replace('-','')
-                               print(f'Buy: ' + slaveid)
-                               buySlave(int(slaveid))
+                               buySlave(int(str(slave['id']).replace('-','')))
                                time.sleep(anticooldown)
-                               jobSlave(int(slaveid))
+                               jobSlave(int(str(slave['id']).replace('-','')))
                                if buy_fetter == True:
                                   time.sleep(anticooldown)
-                                  print('Buy fetter: ' + slaveid)
-                                  buyFetter(int(slaveid))
+                                  buyFetter(int(str(slave['id']).replace('-','')))
+                                  
         if int(slave['slaves_count']) != 0:
-            print('findSlave -> ' + int(slaveid))
+            print('findSlave -> ' + str(slave['id']).replace('-',''))
             findSlave(slave['slaves'])
 
 def Profile():
     print('Profile')
     me = myProfile()['me']
     if me['fetter_to'] != 0:
-        if me['price'] <= me['balance']:
+        if me['balance'] >= me['price']:
             if buy_slave == True:
-               buySlave(me['id'])
+                if int(slave['price']) >= min_price:
+                        if int(slave['price']) <= max_price:
+                           time.sleep(anticooldown)
+                           buySlave(int(str(slave['id']).replace('-','')))
     me = myProfile()['me']
     slaves = myProfile()['slaves']
     for slave in slaves:
-        slaveid = str(slave['id']).replace('-','')
-        print('Profile -> ' + str(slave['id']))
+        print('Profile -> ' + str(slave['id']).replace('-',''))
         if slave['job']['name'] != job_name:
             time.sleep(anticooldown)
-            jobSlave(int(slaveid))
+            jobSlave(int(str(slave['id']).replace('-','')))
+
         if slave['profit_per_min'] * 60 * slave['fetter_hour'] > slave['fetter_price'] and me['balance'] >= slave['fetter_price'] and slave['fetter_to'] == 0:
             if buy_fetter == True:
                            time.sleep(anticooldown)
-                           buyFetter(int(slaveid))
+                           buyFetter(int(str(slave['id']).replace('-','')))
 
 def ThreadProfile():
     my_thread = threading.Thread(target=Profile)
