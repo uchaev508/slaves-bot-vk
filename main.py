@@ -4,7 +4,7 @@ from random import randint, randrange
 from json import load, loads
 from time import sleep
 
-with open("config.json", encoding='utf-8') as f: # cfg
+with open("config.json", encoding='utf-8-sig') as f: # cfg
     config = load(f)
 
 authorization = str(config["authorization"]).rstrip().lstrip()
