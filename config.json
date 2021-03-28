@@ -1,11 +1,11 @@
 {
-	"min_delay": 1,
-	"max_delay": 5,
+	"min_delay": 6,
+	"max_delay": 9,
      
-	"min_price": 40,
-	"max_price": 60,
+	"min_price": 15000,
+	"max_price": 135000,
 
-	"job_name": ["Вьетнам", "Афганистан", "Украина"],
+	"job_name": ["Бедалага", "Доходяга", "Ишак"],
 	"buy_slave": true,
-	"buy_fetter": true
+	"buy_fetter": false
 }
