@@ -4,7 +4,7 @@
 [Тема на Lolzteam](https://lolz.guru/threads/2389937/)
 
 ## Какие настройки присутствуют? Настройка в Config.json
-![image](https://i.imgur.com/qUVMwYT.png)
+![image](https://i.imgur.com/pFstkXT.png)
 - Authorization. Авторизация
 - Windows_title, true/false. Информация реального времени в титл консоли
 - Min/Max_delay. Рандомизация времени на выдачу цепей, покупку рабов и выдачу названвания работы
@@ -43,14 +43,11 @@
 - Пишем pkg install -y git
 - Далее git clone https://github.com/vuchaev2015/slaves-bot-vk
 - cd slaves-bot-vk
-- pkg install -y python
-- Как установилось пишем pip install -r requirements.txt
-- И наконец, после установки модулей пишем python main.py
-![image](https://i.imgur.com/P5dqSNS.png)
-- Ключ получить можно по инструкции ниже
-Небольшая рофляночка, если хотите получить ключ авторизации нужно попросить друга у которого есть доступ к ПК или самому достать его с ПК :)
-P.S Редактировать конфиг можно командой nano config.json
+- fast-setup.sh
+- Настраиваем конфиг. Nano config.json
 ![image](https://i.imgur.com/AnX1Cif.png)
+- Ключ получить можно по инструкции ниже
+- Запускаем run.sh
 
 ## Как получить ключ?
 - Заходим в приложение ["Рабы"](https://vk.com/app7794757)
@@ -61,9 +58,12 @@ P.S Редактировать конфиг можно командой nano con
 - Копируем все из поля authorization
 ![image](https://i.imgur.com/0WT8GH1.png)
 
+На Android можно получить ключ с помощью приложения F12 - Inspect Element
+- https://play.google.com/store/apps/details?id=com.asfmapps.f12
+
 ## Планы на будущее
 - <del>Добавить рандомизацию при установке работ</del> Добавлено!
-- Добавить более удобную и автоматизированную установку на Termux
+- <del>Добавить более удобную и автоматизированную установку на Termux</del> Добавлено!
 
 ## Информация о последнем обновлении
 - Добавлена рандомизация айди и покупка этих рабов, теперь они не генерируются с топа. (By Yagus228)
