@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
-import requests, json, schedule, threading, os
+import requests, json, schedule, threading, os, telebot
 from random import randint, randrange
 from json import load, loads
 from time import sleep
 
 with open("config.json", encoding='utf-8-sig') as f: # cfg
     config = load(f)
+
+telegram_notifications = config["telegram_notifications"] 
+telegram_user_id = config["telegram_user_id"]  
+telegram_bot_token = config["telegram_bot_token"]  
+bot = telebot.TeleBot(token=telegram_bot_token)
 
 authorization = str(config["authorization"]).rstrip().lstrip()
 windows_title = config["windows_title"] 
@@ -80,10 +85,17 @@ def jobSlave(slave_id):
     response = requests.request('POST', url, headers=headers, data=payload)
     if response.status_code == 422:
         print(f'Error when installing the job, possibly cooldown. Slave: {slave_id}')
+        if telegram_notifications == True:
+            bot.send_message(chat_id=telegram_user_id, text=f'Error when installing the job, possibly cooldown. Slave: {slave_id}')
     elif response.status_code == 200:
         print(f'Set job: {slave_id}') 
+        if telegram_notifications == True:
+           bot.send_message(chat_id=telegram_user_id, text=f'Set job: {slave_id}')
     else:
         print(f'Unknown error. Slave: {slave_id}')
+        if telegram_notifications == True:
+           bot.send_message(chat_id=telegram_user_id, text=f'Unknown error. Slave: {slave_id}')
+
     return response.json()
 
 def buyFetter(slave_id):
@@ -99,10 +111,17 @@ def buyFetter(slave_id):
     response = requests.request('POST', url, headers=headers, data=payload)
     if response.status_code == 422:
         print(f'Error when buying fetter, possibly a cooldown. Slave: {slave_id}')
+        if telegram_notifications == True:
+           bot.send_message(chat_id=telegram_user_id, text=f'Error when buying fetter, possibly a cooldown. Slave: {slave_id}')
     elif response.status_code == 200:
         print(f'Buy fetter: {slave_id}') 
+        if telegram_notifications == True:
+           bot.send_message(chat_id=telegram_user_id, text=f'Buy fetter: {slave_id}')
     else:
         print(f'Unknown error. Slave: {slave_id}')
+        if telegram_notifications == True:
+           bot.send_message(chat_id=telegram_user_id, text=f'Unknown error. Slave: {slave_id}')
+   
     return response.json()
 
 def buySlave(slave_id):
@@ -118,10 +137,16 @@ def buySlave(slave_id):
     response = requests.request('POST', url, headers=headers, data=payload)
     if response.status_code == 422:
         print(f'Error when buying slave, possibly a cooldown. Slave: {slave_id}')
+        if telegram_notifications == True:
+           bot.send_message(chat_id=telegram_user_id, text=f'Error when buying slave, possibly a cooldown. Slave: {slave_id}')
     elif response.status_code == 200:
         print(f'Buy: {slave_id}') 
+        if telegram_notifications == True:
+           bot.send_message(chat_id=telegram_user_id, text=f'Buy: {slave_id}')
     else:
         print(f'Unknown error. Slave: {slave_id}')
+        if telegram_notifications == True:
+           bot.send_message(chat_id=telegram_user_id, text=f'Unknown error. Slave: {slave_id}')
     return response.json()
 
 def slaveList(user_id):
