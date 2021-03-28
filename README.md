@@ -1,8 +1,10 @@
 # slaves-bot-vk
 
-[Бот для мини-игры ВКонтакте "Рабы"](https://vk.com/app7794757)
+[Бот для мини-игры ВКонтакте "Рабы"](https://vk.com/app7794757) 
 
 [Тема на Lolzteam](https://lolz.guru/threads/2389937/)
+
+[Группа ВКонтакте](https://vk.com/club203610366) с чатами, для помощи новичкам
 
 ## Какие настройки присутствуют? Настройка в Config.json
 ![image](https://i.imgur.com/Z2YpOd5.png)
