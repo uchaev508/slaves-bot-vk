@@ -39,8 +39,8 @@
 - Поставить галочку ADD TO PATH
 - Установить модули pip install -r requirements.txt
 - Ввести ключ в Config.json
-- Запустить скрипт
 ![image](https://i.imgur.com/39dj33O.png)
+- Запустить скрипт
 
 ## Установка на Android
 - Устанавливаем Termux с Play Market
