@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import requests, json, schedule, threading
+import requests, json, schedule, threading, os
 from random import randint, randrange
 from json import load, loads
 from time import sleep
@@ -8,6 +8,7 @@ with open("config.json", encoding='utf-8-sig') as f: # cfg
     config = load(f)
 
 authorization = str(config["authorization"]).rstrip().lstrip()
+windows_title = config["windows_title"] 
 
 job_name = config["job_name"] 
 min_price = config["min_price"] 
@@ -16,10 +17,12 @@ buy_slave = config["buy_slave"]
 buy_fetter = config["buy_fetter"]
 buy_invisible_slave = config["buy_invisible_slave"]
 
+print(f'Windows title: {windows_title}')
 print(f'Job name: {job_name}')
 print(f'Min price: {min_price}, max price: {max_price}')
 print(f'Buy slave: {buy_slave}')
 print(f'Buy fetter: {buy_fetter}')
+print(f'Buy invisible slave: {buy_invisible_slave}')
 
 def myProfile():
     global authorization
@@ -166,7 +169,7 @@ def Profile():
             sleep(randint(config["min_delay"],config["max_delay"]))
             jobSlave(int(str(slave['id']).replace('-','')))
 
-        if slave['profit_per_min'] * 60 * slave['fetter_hour'] > slave['fetter_price'] and me['balance'] >= slave['fetter_price'] and slave['fetter_to'] == 0:
+        if slave['fetter_price'] <= me['balance'] and slave['fetter_to'] == 0:
             if buy_fetter == True:
                            sleep(randint(config["min_delay"],config["max_delay"]))
                            buyFetter(int(str(slave['id']).replace('-','')))
@@ -176,10 +179,16 @@ def ThreadProfile():
     my_thread.start()
 
 me = myProfile()['me']
-print('Your ID:', str(me['id']), 'Slaves:', str(me['slaves_count']), 'Profit:', str(me['slaves_profit_per_min']))
 schedule.every(2).minutes.do(ThreadProfile)
 
 while True:
+    try:
+        me = myProfile()['me']
+        if windows_title == True:
+           os.system(f'title Your ID: ' + str(me['id']) +  ", slaves: " + str(me['slaves_count']) + ", balance: " + str(me['balance']) + ", profit: " + str(me['slaves_profit_per_min']) + "/per min")
+    except Exception as e:
+        print(f'Критическая ошибка - {e}')
+        input
     try:
         if buy_invisible_slave == True:
             randomid = randint(-999999999, -1)
