@@ -12,7 +12,6 @@
 - Min/Max_price. Минимальная и максимальная цена за которую покупать рабов
 - Buy_slave, true/false. Покупка рабов
 - Buy_fetter, true/false. Покупка оков
-- Buy_invisible_slave, true/false. Покупка невидимых рабов
 
 ## Флуд в консоль ошибками
 - Error when buying slave, possibly a cooldown. Возможно флуд-контроль на покупку рабов
