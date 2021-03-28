@@ -38,8 +38,8 @@
 - Установить Python последней версии http://python.org
 - Поставить галочку ADD TO PATH
 - Установить модули pip install -r requirements.txt
-- Запустить скрипт
 - Ввести ключ в Config.json
+- Запустить скрипт
 ![image](https://i.imgur.com/39dj33O.png)
 
 ## Установка на Android
