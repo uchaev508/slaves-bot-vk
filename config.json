@@ -3,13 +3,12 @@
     "windows_title": true,
 
     "min_delay": 5,
-    "max_delay": 7,
+    "max_delay": 8,
      
     "min_price": 10000,
     "max_price": 1000000,
 
     "job_name": ["Вьетнам", "Афганистан", "Украина"],
     "buy_slave": true,
-    "buy_fetter": true,
-    "buy_invisible_slave": false
+    "buy_fetter": true
 }

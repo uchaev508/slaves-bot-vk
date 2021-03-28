@@ -15,14 +15,12 @@ min_price = config["min_price"]
 max_price = config["max_price"]
 buy_slave = config["buy_slave"]
 buy_fetter = config["buy_fetter"]
-buy_invisible_slave = config["buy_invisible_slave"]
 
 print(f'Windows title: {windows_title}')
 print(f'Job name: {job_name}')
 print(f'Min price: {min_price}, max price: {max_price}')
 print(f'Buy slave: {buy_slave}')
 print(f'Buy fetter: {buy_fetter}')
-print(f'Buy invisible slave: {buy_invisible_slave}')
 
 def myProfile():
     global authorization
@@ -164,7 +162,6 @@ def Profile():
     me = myProfile()['me']
     slaves = myProfile()['slaves']
     for slave in slaves:
-        print('Profile -> ' + str(slave['id']).replace('-',''))
         if slave['job']['name'] not in job_name:
             sleep(randint(config["min_delay"],config["max_delay"]))
             jobSlave(int(str(slave['id']).replace('-','')))
@@ -190,11 +187,7 @@ while True:
         print(f'Критическая ошибка - {e}')
         input
     try:
-        if buy_invisible_slave == True:
-            randomid = randint(-999999999, -1)
-        else:
-            randomid = randint(10000, 647000000)
-
+        randomid = randint(10000, 647000000)
         slave = userProfile(randomid)
         schedule.run_pending()
         print('Slave: ' + str(randomid))
@@ -203,14 +196,13 @@ while True:
                 if int(slave['price']) >= min_price:
                     if int(slave['price']) <= max_price:
                         sleep(randint(config["min_delay"],config["max_delay"]))
-                        if buy_slave == True:
+                        if buy_slave == True :
                             buySlave(randomid)
                             sleep(randint(config["min_delay"],config["max_delay"]))
                             jobSlave(randomid)
                             if buy_fetter == True:
                                 sleep(randint(config["min_delay"],config["max_delay"]))
                                 buyFetter(randomid)
-        
 
     except Exception as inst:
         try:
@@ -220,4 +212,3 @@ while True:
         finally:
             inst = None
             del inst
-
