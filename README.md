@@ -4,7 +4,7 @@
 [Тема на Lolzteam](https://lolz.guru/threads/2389937/)
 
 ## Какие настройки присутствуют? Настройка в Config.json
-![image](https://i.imgur.com/pFstkXT.png)
+![image](https://i.imgur.com/Z2YpOd5.png)
 - Authorization. Авторизация
 - Windows_title, true/false. Информация реального времени в титл консоли
 - Min/Max_delay. Рандомизация времени на выдачу цепей, покупку рабов и выдачу названвания работы
@@ -42,11 +42,11 @@
 - Пишем pkg install -y git
 - Далее git clone https://github.com/vuchaev2015/slaves-bot-vk
 - cd slaves-bot-vk
-- fast-setup.sh
+- sh fast-setup.sh
 - Настраиваем конфиг. Nano config.json
 ![image](https://i.imgur.com/AnX1Cif.png)
 - Ключ получить можно по инструкции ниже
-- Запускаем run.sh
+- sh run.sh
 
 ## Как получить ключ?
 - Заходим в приложение ["Рабы"](https://vk.com/app7794757)
@@ -70,3 +70,4 @@
 - Исправлена проблема с кодировкой (крашило скрипт при запуске)
 - Добавлена покупка невидимых рабов в конфиге, по дефолту выключено
 - Добавлена информация в реальном времени в титл консоли (Линуксоидам и термуксоидам - windows title поставить на false или будет флудить в консоль ошибкой :) )
+- Удалили невидимых рабов , т.к они были пофикшены
