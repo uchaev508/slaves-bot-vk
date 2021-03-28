@@ -10,7 +10,9 @@ with open("config.json", encoding='utf-8-sig') as f: # cfg
 telegram_notifications = config["telegram_notifications"] 
 telegram_user_id = config["telegram_user_id"]  
 telegram_bot_token = config["telegram_bot_token"]  
-bot = telebot.TeleBot(token=telegram_bot_token)
+
+if telegram_notifications == True:
+   bot = telebot.TeleBot(token=telegram_bot_token)
 
 authorization = str(config["authorization"]).rstrip().lstrip()
 windows_title = config["windows_title"] 
