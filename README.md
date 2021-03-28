@@ -4,12 +4,14 @@
 [Тема на Lolzteam](https://lolz.guru/threads/2389937/)
 
 ## Какие настройки присутствуют? Настройка в Config.json
-![image](https://i.imgur.com/qfENg1P.png)
+![image](https://i.imgur.com/qUVMwYT.png)
+- Authorization. Авторизация
 - Min/Max_delay. Рандомизация времени на выдачу цепей, покупку рабов и выдачу названвания работы
 - Job_name. Имя, имена работ
 - Min/Max_price. Минимальная и максимальная цена за которую покупать рабов
 - Buy_slave, true/false. Покупка рабов
 - Buy_fetter, true/false. Покупка оков
+- Buy_invisible_slave, true/false. Покупка невидимых рабов
 
 ## Флуд в консоль ошибками
 - Error when buying slave, possibly a cooldown. Возможно флуд-контроль на покупку рабов
