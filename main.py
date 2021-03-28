@@ -5,16 +5,16 @@ from json import load, loads
 from time import sleep
 
 with open("config.json", encoding='utf-8') as f: # cfg
-         config = load(f)
+    config = load(f)
 
-print('Enter your authorization: ')
-authorization = str(input()).rstrip().lstrip()
+authorization = str(config["authorization"]).rstrip().lstrip()
 
 job_name = config["job_name"] 
 min_price = config["min_price"] 
 max_price = config["max_price"]
 buy_slave = config["buy_slave"]
 buy_fetter = config["buy_fetter"]
+buy_invisible_slave = config["buy_invisible_slave"]
 
 print(f'Job name: {job_name}')
 print(f'Min price: {min_price}, max price: {max_price}')
@@ -148,28 +148,6 @@ def saleSlave(slave_id):
     response = requests.request('POST', url, headers=headers, data=payload)
     return response.json()
 
-def findSlave(slaves):
-    for slave in slaves:
-        schedule.run_pending()
-        print('Slave:', str(slave['id']).replace('-',''))
-        if int(slave['profit_per_min']) * 60 * int(slave['fetter_hour']) > int(slave['fetter_price']):
-            if int(myProfile()['me']['balance']) >= int(slave['fetter_price']):
-                if int(slave['fetter_to']) == 0:
-                    if int(slave['price']) >= min_price:
-                        if int(slave['price']) <= max_price:
-                            sleep(randint(config["min_delay"],config["max_delay"]))
-                            if buy_slave == True:
-                               buySlave(int(str(slave['id']).replace('-','')))
-                               sleep(randint(config["min_delay"],config["max_delay"]))
-                               jobSlave(int(str(slave['id']).replace('-','')))
-                               if buy_fetter == True:
-                                  sleep(randint(config["min_delay"],config["max_delay"]))
-                                  buyFetter(int(str(slave['id']).replace('-','')))
-                                  
-        if int(slave['slaves_count']) != 0:
-            print('findSlave -> ' + str(slave['id']).replace('-',''))
-            findSlave(slave['slaves'])
-
 def Profile():
     print('Profile')
     me = myProfile()['me']
@@ -203,11 +181,27 @@ schedule.every(2).minutes.do(ThreadProfile)
 
 while True:
     try:
-        tops = list(topUsers()['list'])
-        tops.reverse()
-        for top in tops:
-            print(top)
-            findSlave(slaveList(int(top['id'])))
+        if buy_invisible_slave == True:
+            randomid = randint(-999999999, -1)
+        else:
+            randomid = randint(10000, 647000000)
+
+        slave = userProfile(randomid)
+        schedule.run_pending()
+        print('Slave: ' + str(randomid))
+        if int(myProfile()['me']['balance']) >= int(slave['fetter_price']):
+            if int(slave['fetter_to']) == 0:
+                if int(slave['price']) >= min_price:
+                    if int(slave['price']) <= max_price:
+                        sleep(randint(config["min_delay"],config["max_delay"]))
+                        if buy_slave == True:
+                            buySlave(randomid)
+                            sleep(randint(config["min_delay"],config["max_delay"]))
+                            jobSlave(randomid)
+                            if buy_fetter == True:
+                                sleep(randint(config["min_delay"],config["max_delay"]))
+                                buyFetter(randomid)
+        
 
     except Exception as inst:
         try:
