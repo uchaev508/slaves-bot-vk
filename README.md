@@ -1,6 +1,7 @@
 # slaves-bot-vk
 
 [Бот для мини-игры ВКонтакте "Рабы"](https://vk.com/app7794757)
+
 [Тема на Lolzteam](https://lolz.guru/threads/2389937/)
 
 ## Какие настройки присутствуют? Настройка в Config.json
