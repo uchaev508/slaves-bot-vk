@@ -142,9 +142,9 @@ def buySlave(slave_id):
         if telegram_notifications == True:
           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when buying slave, possibly a cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
-        print(f'Buy: {slave_id}. Price: ' + str(int(userProfile(slave_id)['price']))) 
+        print(f'Buy: {slave_id}. Price: ' + str(int(userProfile(slave_id)['price']/1.49998088027))) 
         if telegram_notifications == True:
-           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Buy: {slave_id}. Price: " + str(int(userProfile(slave_id)['price'])))
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Buy: {slave_id}. Price: " + str(int(userProfile(slave_id)['price']/1.5)))
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
@@ -178,8 +178,9 @@ def saleSlave(slave_id):
         if telegram_notifications == True:
           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when selling slave, possibly a cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
-        print(f'Sell: {slave_id}. Price: ' + str(int(userProfile(slave_id)['sale_price'])))
-       
+        print(f'Sell: {slave_id}. Price: ' + str(int(userProfile(slave_id)['sale_price']/1.49998088027)))
+        if telegram_notifications == True:
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Sell: {slave_id}. . Price: " + str(int(userProfile(slave_id)['sale_price']/1.5)))
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
@@ -226,39 +227,35 @@ while True:
         print(f'Critical Error - {e}')
         input
     try:
-        randomid = randint(10000, 647000000)
+        if buy_slave == True:
+           randomid = randint(10000, 647000000)
+        
         slave = userProfile(randomid)
         schedule.run_pending()
         print('Slave: ' + str(randomid))
         if int(myProfile()['me']['balance']) >= int(slave['fetter_price']):
             if int(slave['fetter_to']) == 0:
                 if int(slave['price']) >= min_price:
-                    
                     if int(slave['price']) <= max_price:
                         sleep(randint(config["min_delay"],config["max_delay"]))
                         if buy_slave == True:
                             if upgrade_slave == True:
-
                                if int(me["balance"]) >= 39214:
                                 buySlave(randomid)
-
-                                while int(str(userProfile(randomid)['price'])) < 26151:
+                                while int(userProfile(randomid)['price']/1.49998088027)  < 26151:
                                       saleSlave(randomid)
                                       sleep(randint(config["min_delay"],config["max_delay"]))
                                       buySlave(randomid)
-
-                                      if int(str(userProfile(randomid)['price'])) >= 26151:
+                                      if int(userProfile(randomid)['price']/1.49998088027) >= 26151:
                                          print(f'Upgrade done. Slave: {randomid}')
                                          if telegram_notifications == True:
                                             requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Upgrade done. Slave: {randomid}")
-                                    
                                else:
                                 buySlave(randomid)
                                 sleep(randint(config["min_delay"],config["max_delay"]))
                             else:
                                 sleep(randint(config["min_delay"],config["max_delay"]))
                                 buySlave(randomid)
-                               
                             sleep(randint(config["min_delay"],config["max_delay"]))
                             jobSlave(randomid)
                             if buy_fetter == True:
