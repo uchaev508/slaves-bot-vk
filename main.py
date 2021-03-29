@@ -1,33 +1,32 @@
 # -*- coding: utf-8 -*-
-import requests, json, schedule, threading, os, telebot
+import requests, json, schedule, threading, os
 from random import randint, randrange
-from json import load, loads
 from time import sleep
 
 with open("config.json", encoding='utf-8-sig') as f: # cfg
-    config = load(f)
+    config = json.load(f)
+
+authorization = str(config["authorization"]).rstrip().lstrip()
+windows_title = config["windows_title"] 
 
 telegram_notifications = config["telegram_notifications"] 
 telegram_user_id = config["telegram_user_id"]  
 telegram_bot_token = config["telegram_bot_token"]  
-
-if telegram_notifications == True:
-   bot = telebot.TeleBot(telegram_bot_token)
-
-authorization = str(config["authorization"]).rstrip().lstrip()
-windows_title = config["windows_title"] 
 
 job_name = config["job_name"] 
 min_price = config["min_price"] 
 max_price = config["max_price"]
 buy_slave = config["buy_slave"]
 buy_fetter = config["buy_fetter"]
+upgrade_slave = config["upgrade_slave"]
 
 print(f'Windows title: {windows_title}')
+print(f'Telegram notifications: {telegram_notifications}')
 print(f'Job name: {job_name}')
 print(f'Min price: {min_price}, max price: {max_price}')
 print(f'Buy slave: {buy_slave}')
 print(f'Buy fetter: {buy_fetter}')
+print(f'Upgrade slave: {upgrade_slave}')
 
 def myProfile():
     global authorization
@@ -88,15 +87,15 @@ def jobSlave(slave_id):
     if response.status_code == 422:
         print(f'Error when installing the job, possibly cooldown. Slave: {slave_id}')
         if telegram_notifications == True:
-            bot.send_message(telegram_user_id, f'Error when installing the job, possibly cooldown. Slave: {slave_id}')
+            requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when installing the job, possibly cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
         print(f'Set job: {slave_id}') 
         if telegram_notifications == True:
-           bot.send_message(telegram_user_id, f'Set job: {slave_id}')
+            requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Set job: {slave_id}")
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
-           bot.send_message(telegram_user_id, f'Unknown error. Slave: {slave_id}')
+            requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Unknown error. Slave: {slave_id}")
 
     return response.json()
 
@@ -114,15 +113,15 @@ def buyFetter(slave_id):
     if response.status_code == 422:
         print(f'Error when buying fetter, possibly a cooldown. Slave: {slave_id}')
         if telegram_notifications == True:
-           bot.send_message(telegram_user_id, f'Error when buying fetter, possibly a cooldown. Slave: {slave_id}')
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when buying fetter, possibly a cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
         print(f'Buy fetter: {slave_id}') 
         if telegram_notifications == True:
-           bot.send_message(telegram_user_id, f'Buy fetter: {slave_id}')
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Buy fetter: {slave_id}")
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
-           bot.send_message(telegram_user_id, f'Unknown error. Slave: {slave_id}')
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Unknown error. Slave: {slave_id}")
    
     return response.json()
 
@@ -140,15 +139,16 @@ def buySlave(slave_id):
     if response.status_code == 422:
         print(f'Error when buying slave, possibly a cooldown. Slave: {slave_id}')
         if telegram_notifications == True:
-           bot.send_message(telegram_user_id, f'Error when buying slave, possibly a cooldown. Slave: {slave_id}')
+          requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when buying slave, possibly a cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
         print(f'Buy: {slave_id}') 
         if telegram_notifications == True:
-           bot.send_message(telegram_user_id, f'Buy: {slave_id}')
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Buy: {slave_id}'")
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
-           bot.send_message(telegram_user_id, f'Unknown error. Slave: {slave_id}')
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Unknown error. Slave: {slave_id}")
+
     return response.json()
 
 def slaveList(user_id):
@@ -167,13 +167,24 @@ def saleSlave(slave_id):
     url = 'https://pixel.w84.vkforms.ru/HappySanta/slaves/1.0.0/saleSlave'
     payload = json.dumps({'slave_id': slave_id})
     headers = {'sec-ch-ua':'"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"', 
-     'authorization':authorization, 
-     'sec-ch-ua-mobile':'?0', 
-     'content-type':'application/json',
-     'origin':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com',
-     'referer':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com/',
-     'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
+     'Content-Type': "application/json",
+     'authorization': authorization,
+     'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36',
+     'origin':'https://prod-app7794757-29d7bd3253fe.pages-ac.vk-apps.com'}
     response = requests.request('POST', url, headers=headers, data=payload)
+    if response.status_code == 422:
+        print(f'Error when selling slave, possibly a cooldown. Slave: {slave_id}')
+        if telegram_notifications == True:
+          requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when selling slave, possibly a cooldown. Slave: {slave_id}")
+    elif response.status_code == 200:
+        print(f'Sell: {slave_id}') 
+        if telegram_notifications == True:
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Sell: {slave_id}'")
+    else:
+        print(f'Unknown error. Slave: {slave_id}')
+        if telegram_notifications == True:
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Unknown error. Slave: {slave_id}")
+
     return response.json()
 
 def Profile():
@@ -211,7 +222,7 @@ while True:
         if windows_title == True:
            os.system(f'title Your ID: ' + str(me['id']) +  ", slaves: " + str(me['slaves_count']) + ", balance: " + str(me['balance']) + ", profit: " + str(me['slaves_profit_per_min']) + "/per min")
     except Exception as e:
-        print(f'Критическая ошибка - {e}')
+        print(f'Critical Error - {e}')
         input
     try:
         randomid = randint(10000, 647000000)
@@ -221,10 +232,21 @@ while True:
         if int(myProfile()['me']['balance']) >= int(slave['fetter_price']):
             if int(slave['fetter_to']) == 0:
                 if int(slave['price']) >= min_price:
+                    
                     if int(slave['price']) <= max_price:
                         sleep(randint(config["min_delay"],config["max_delay"]))
                         if buy_slave == True :
                             buySlave(randomid)
+                            sleep(randint(config["min_delay"],config["max_delay"]))
+                            
+                            if upgrade_slave == True:
+                               if int(me["balance"]) >= 39214:
+                                    while int(str(userProfile(randomid)['price'])) <= 26151:
+                                      saleSlave(randomid)
+                                      sleep(randint(config["min_delay"],config["max_delay"]))
+                                      buySlave(randomid)
+                                      print(f'Upgraded. Now price: ' + int(str(userProfile(randomid)['price'])))
+
                             sleep(randint(config["min_delay"],config["max_delay"]))
                             jobSlave(randomid)
                             if buy_fetter == True:
