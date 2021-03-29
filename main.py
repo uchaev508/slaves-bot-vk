@@ -235,19 +235,19 @@ while True:
                     
                     if int(slave['price']) <= max_price:
                         sleep(randint(config["min_delay"],config["max_delay"]))
-                        if buy_slave == True :
-                            buySlave(randomid)
-                            sleep(randint(config["min_delay"],config["max_delay"]))
-                            
+                        if buy_slave == True:
                             if upgrade_slave == True:
+                               
                                if int(me["balance"]) >= 39214:
                                     while int(str(userProfile(randomid)['price'])) <= 26151:
-                                      saleSlave(randomid)
                                       sleep(randint(config["min_delay"],config["max_delay"]))
                                       buySlave(randomid)
                                       print(f'Upgraded. Now price: ' + str(int(userProfile(randomid)['price'])))
                                       if telegram_notifications == True:
                                          requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Upgraded. Now price: " + str(int(userProfile(randomid)['price'])))
+                                      saleSlave(randomid)
+                            else:
+                                buySlave(randomid)
                             
                             sleep(randint(config["min_delay"],config["max_delay"]))
                             jobSlave(randomid)
