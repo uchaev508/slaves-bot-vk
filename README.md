@@ -50,7 +50,8 @@
 - Далее git clone https://github.com/vuchaev2015/slaves-bot-vk
 - cd slaves-bot-vk
 - sh fast-setup.sh
-- Настраиваем конфиг. Nano config.json
+- Настраиваем конфиг 
+nano config.json
 ![image](https://i.imgur.com/AnX1Cif.png)
 - Ключ получить можно по инструкции ниже
 - sh run.sh
