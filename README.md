@@ -7,7 +7,7 @@
 [Группа ВКонтакте](https://vk.com/club203610366) с чатами, для помощи новичкам
 
 ## Какие настройки присутствуют? Настройка в Config.json
-![image](https://i.imgur.com/SWIq9ZQ.png)
+![image](https://i.imgur.com/g2IMBJh.png)
 - Authorization. Авторизация
 - Windows_title, true/false. Информация реального времени в титл консоли
 - Telegram_notifications, true/false. Уведомления в телеграм
@@ -18,6 +18,7 @@
 - Min/Max_price. Минимальная и максимальная цена за которую покупать рабов
 - Buy_slave, true/false. Покупка рабов
 - Buy_fetter, true/false. Покупка оков
+- Upgrade_slave, true/false. Улучшение рабов до макс. профита
 
 ## Флуд в консоль ошибками
 - Error when buying slave, possibly a cooldown. Возможно флуд-контроль на покупку рабов
@@ -78,3 +79,4 @@
 - Добавлена информация в реальном времени в титл консоли (Линуксоидам и термуксоидам - windows title поставить на false или будет флудить в консоль ошибкой :) )
 - Удалили невидимых рабов , т.к они были пофикшены
 - Добавлены уведомления Telegram
+- Добавлено улучшение рабов
