@@ -179,7 +179,7 @@ def saleSlave(slave_id):
     elif response.status_code == 200:
         print(f'Sell: {slave_id}') 
         if telegram_notifications == True:
-           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Sell: {slave_id}'")
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Sell: {slave_id}")
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
@@ -246,7 +246,9 @@ while True:
                                       sleep(randint(config["min_delay"],config["max_delay"]))
                                       buySlave(randomid)
                                       print(f'Upgraded. Now price: ' + str(int(userProfile(randomid)['price'])))
-
+                                      if telegram_notifications == True:
+                                         requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Upgraded. Now price: " + str(int(userProfile(randomid)['price'])))
+                            
                             sleep(randint(config["min_delay"],config["max_delay"]))
                             jobSlave(randomid)
                             if buy_fetter == True:
