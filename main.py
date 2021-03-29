@@ -27,6 +27,7 @@ print(f'Min price: {min_price}, max price: {max_price}')
 print(f'Buy slave: {buy_slave}')
 print(f'Buy fetter: {buy_fetter}')
 print(f'Upgrade slave: {upgrade_slave}')
+print(f'')
 
 def myProfile():
     global authorization
@@ -89,9 +90,9 @@ def jobSlave(slave_id):
         if telegram_notifications == True:
             requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when installing the job, possibly cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
-        print(f'Set job: {slave_id}') 
+        print(f'Set job: {slave_id}. Name: ' + userProfile(slave_id)['job']['name'])
         if telegram_notifications == True:
-            requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Set job: {slave_id}")
+            requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Set job: {slave_id}. Name: " + userProfile(slave_id)['job']['name'])
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
@@ -115,9 +116,9 @@ def buyFetter(slave_id):
         if telegram_notifications == True:
            requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when buying fetter, possibly a cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
-        print(f'Buy fetter: {slave_id}') 
+        print(f'Buy fetter: {slave_id}. Price: ' + str(int(userProfile(slave_id)['fetter_price'])))
         if telegram_notifications == True:
-           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Buy fetter: {slave_id}")
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Buy fetter: {slave_id}. Price: "+ str(int(userProfile(slave_id)['fetter_price'])))
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
@@ -141,9 +142,9 @@ def buySlave(slave_id):
         if telegram_notifications == True:
           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when buying slave, possibly a cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
-        print(f'Buy: {slave_id}') 
+        print(f'Buy: {slave_id}. Price: ' + str(int(userProfile(slave_id)['price']))) 
         if telegram_notifications == True:
-           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Buy: {slave_id}")
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Buy: {slave_id}. Price: " + str(int(userProfile(slave_id)['price'])))
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
@@ -177,9 +178,8 @@ def saleSlave(slave_id):
         if telegram_notifications == True:
           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Error when selling slave, possibly a cooldown. Slave: {slave_id}")
     elif response.status_code == 200:
-        print(f'Sell: {slave_id}') 
-        if telegram_notifications == True:
-           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Sell: {slave_id}")
+        print(f'Sell: {slave_id}. Price: ' + str(int(userProfile(slave_id)['sale_price'])))
+       
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
@@ -188,7 +188,7 @@ def saleSlave(slave_id):
     return response.json()
 
 def Profile():
-    print('Profile')
+    print('Profile?  0_o')
     me = myProfile()['me']
     if me['fetter_to'] != 0:
         if me['balance'] >= me['price']:
@@ -201,9 +201,9 @@ def Profile():
     slaves = myProfile()['slaves']
     
     for slave in slaves:
-        if slave['job']['name'] not in job_name:
+        if slave['job']['name'] == '':
             sleep(randint(config["min_delay"],config["max_delay"]))
-            jobSlave(int(str(slave['id']).replace('-','')))
+            jobSlave((slave['id']))
 
         if slave['fetter_price'] <= me['balance'] and slave['fetter_to'] == 0:
             if buy_fetter == True:
@@ -215,7 +215,7 @@ def ThreadProfile():
     my_thread.start()
 
 me = myProfile()['me']
-schedule.every(2).minutes.do(ThreadProfile)
+schedule.every(1).minutes.do(ThreadProfile)
 
 while True:
     try:
@@ -238,19 +238,19 @@ while True:
                         sleep(randint(config["min_delay"],config["max_delay"]))
                         if buy_slave == True:
                             if upgrade_slave == True:
-                               buySlave(randomid)
-                               print(f'Upgraded. Now price: ' + str(int(userProfile(randomid)['price'])))
-                               if telegram_notifications == True:
-                                  requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Upgraded. Now price: " + str(int(userProfile(randomid)['price'])))
-                               
+
                                if int(me["balance"]) >= 39214:
-                                    while int(str(userProfile(randomid)['price'])) <= 26151:
+                                buySlave(randomid)
+
+                                while int(str(userProfile(randomid)['price'])) < 26151:
                                       saleSlave(randomid)
                                       sleep(randint(config["min_delay"],config["max_delay"]))
                                       buySlave(randomid)
-                                      print(f'Upgraded. Now price: ' + str(int(userProfile(randomid)['price'])))
-                                      if telegram_notifications == True:
-                                         requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Upgraded. Now price: " + str(int(userProfile(randomid)['price'])))
+
+                                      if int(str(userProfile(randomid)['price'])) >= 26151:
+                                         print(f'Upgrade done. Slave: {randomid}')
+                                         if telegram_notifications == True:
+                                            requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Upgrade done. Slave: {randomid}")
                                     
                                else:
                                 buySlave(randomid)
@@ -259,8 +259,6 @@ while True:
                                 sleep(randint(config["min_delay"],config["max_delay"]))
                                 buySlave(randomid)
                                
-
-
                             sleep(randint(config["min_delay"],config["max_delay"]))
                             jobSlave(randomid)
                             if buy_fetter == True:
