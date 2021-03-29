@@ -245,7 +245,7 @@ while True:
                                       saleSlave(randomid)
                                       sleep(randint(config["min_delay"],config["max_delay"]))
                                       buySlave(randomid)
-                                      print(f'Upgraded. Now price: ' + int(str(userProfile(randomid)['price'])))
+                                      print(f'Upgraded. Now price: ' + str(int(userProfile(randomid)['price'])))
 
                             sleep(randint(config["min_delay"],config["max_delay"]))
                             jobSlave(randomid)
