@@ -1,19 +1,31 @@
 {
-    "authorization": "",
-    "windows_title": true,
-    
-    "telegram_notifications": false,
+  "authorization": "",
+  "windows_title": true,
+  
+  "telegram_settings": {
+    "telegram_notification": true,
     "telegram_user_id": 575289149,
     "telegram_bot_token": "",
-    
+    "telegram_notify_error": {
+      "job_name": false,
+      "buy_slave": false,
+      "buy_fetter": false,
+      "sale_slave": false
+    }
+  },
+  
+  "general_settings": {
     "min_delay": 3,
-    "max_delay": 5,
-     
-    "min_price": 1000,
-    "max_price": 1000000,
-
-    "job_name": ["Вьетнам", "Афганистан", "Украина"],
+    "max_delay": 7,
+    "min_price": 1,
+    "max_price": 40,
+    "job_name": [
+      "Вьетнам",
+      "Афганистан",
+      "Украина"
+    ],
     "buy_slave": true,
     "buy_fetter": true,
-    "upgrade_slave": true
+    "upgrade_slave": false
+  }
 }
