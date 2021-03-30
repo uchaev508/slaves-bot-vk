@@ -26,6 +26,6 @@
     ],
     "buy_slave": true,
     "buy_fetter": true,
-    "upgrade_slave": false
+    "upgrade_slave": true
   }
 }
