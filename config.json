@@ -15,8 +15,8 @@
   },
   
   "general_settings": {
-    "min_delay": 3,
-    "max_delay": 7,
+    "min_delay": 5,
+    "max_delay": 10,
     "min_price": 1,
     "max_price": 40,
     "job_name": [
@@ -27,5 +27,9 @@
     "buy_slave": true,
     "buy_fetter": true,
     "upgrade_slave": true
+  },
+
+  "other_settings": {
+    "sale_all_slaves": false
   }
 }

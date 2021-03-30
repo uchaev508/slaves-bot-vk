@@ -207,13 +207,18 @@ def Profile():
 
     for slave in slaves:
         if slave['job']['name'] == '':
-            sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
-            jobSlave((slave['id']))
+            if config['other_settings']['sale_all_slaves'] == False:
+                sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
+                jobSlave((slave['id']))
 
         if slave['fetter_price'] <= me['balance'] and slave['fetter_to'] == 0:
-            if config['general_settings']['buy_fetter'] == True:
-                           sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
-                           buyFetter(int(str(slave['id'])))
+            if config['other_settings']['sale_all_slaves'] == False:
+                if config['general_settings']['buy_fetter'] == True:
+                               sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
+                               buyFetter(int(str(slave['id'])))
+
+        if config['other_settings']['sale_all_slaves'] == True:
+            saleSlave(int(str(slave['id'])))
 
 threading.Thread(target=Profile).start()
 
@@ -228,39 +233,40 @@ while True:
     try:
         schedule.run_pending()
         if config['general_settings']['buy_slave'] == True:
-            randomid = randint(10000, 647000000)
-            slave = userProfile(randomid)
-            print('Slave: ' + str(randomid))
+            if config['other_settings']['sale_all_slaves'] == False:
+                randomid = randint(10000, 647000000)
+                slave = userProfile(randomid)
+                print('Slave: ' + str(randomid))
 
-            if int(myProfile()['me']['balance']) >= int(slave['fetter_price']):
-                if int(slave['fetter_to']) == 0:
-                    if int(slave['price']) >= config['general_settings']['min_price']:
-                        if int(slave['price']) <= config['general_settings']['max_price']:
-                            sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
-                            if config['general_settings']['buy_slave'] == True:
-                                if config['general_settings']['upgrade_slave'] == True:
-                                   if int(me["balance"]) >= 39214:
-                                    buySlave(randomid)
-                                    while int(userProfile(randomid)['price']/1.49998088027)  < 26151:
-                                          saleSlave(randomid)
-                                          sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
-                                          buySlave(randomid)
-                                          if int(userProfile(randomid)['price']/1.49998088027) >= 26151:
-                                             print(f'Upgrade done. Slave: {randomid}')
-                                             if config['telegram_settings']['telegram_notification'] == True:
-                                                requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Upgrade done. Slave: {randomid}")
-                                   else:
-                                    buySlave(randomid)
-                                    sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
-                                else:
-                                    sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
-                                    buySlave(randomid)
+                if int(myProfile()['me']['balance']) >= int(slave['fetter_price']):
+                    if int(slave['fetter_to']) == 0:
+                        if int(slave['price']) >= config['general_settings']['min_price']:
+                            if int(slave['price']) <= config['general_settings']['max_price']:
                                 sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
-                                jobSlave(randomid)
-                                if config['general_settings']['buy_fetter'] == True:
-                                    if slave['fetter_price'] <= me['balance'] and slave['fetter_to'] == 0:
-                                       sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
-                                       buyFetter(randomid)
+                                if config['general_settings']['buy_slave'] == True:
+                                    if config['general_settings']['upgrade_slave'] == True:
+                                       if int(me["balance"]) >= 39214:
+                                        buySlave(randomid)
+                                        while int(userProfile(randomid)['price']/1.49998088027)  < 26151:
+                                              saleSlave(randomid)
+                                              sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
+                                              buySlave(randomid)
+                                              if int(userProfile(randomid)['price']/1.49998088027) >= 26151:
+                                                 print(f'Upgrade done. Slave: {randomid}')
+                                                 if config['telegram_settings']['telegram_notification'] == True:
+                                                    requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Upgrade done. Slave: {randomid}")
+                                       else:
+                                        buySlave(randomid)
+                                        sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
+                                    else:
+                                        sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
+                                        buySlave(randomid)
+                                    sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
+                                    jobSlave(randomid)
+                                    if config['general_settings']['buy_fetter'] == True:
+                                        if slave['fetter_price'] <= me['balance'] and slave['fetter_to'] == 0:
+                                           sleep(randint(config['general_settings']['min_delay'],config['general_settings']['max_delay']))
+                                           buyFetter(randomid)
 
     except Exception as inst:
         try:
