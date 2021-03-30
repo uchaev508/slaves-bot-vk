@@ -15,8 +15,8 @@
   },
   
   "general_settings": {
-    "min_delay": 5,
-    "max_delay": 10,
+    "min_delay": 3,
+    "max_delay": 8,
     "min_price": 1,
     "max_price": 40,
     "job_name": [
@@ -30,6 +30,7 @@
   },
 
   "other_settings": {
-    "sale_all_slaves": false
+    "sale_all_slaves": false,
+    "trigger_user_id": 0
   }
 }
