@@ -7,7 +7,7 @@
 [Группа ВКонтакте](https://vk.com/club203610366) с чатами, для помощи новичкам
 
 ## Какие настройки присутствуют? Настройка в Config.json
-![image](https://i.imgur.com/rQW54lb.png)
+![image](https://i.imgur.com/HV6w1gf.png)
 - Authorization. Авторизация
 - Windows_title, true/false. Информация реального времени в титл консоли
 - Telegram_notifications, true/false. Уведомления в телеграм
@@ -20,6 +20,7 @@
 - Buy_slave, true/false. Покупка рабов
 - Buy_fetter, true/false. Покупка оков
 - Upgrade_slave, true/false. Улучшение рабов до макс. профита
+- Sale_all_slaves, true/false. Продажа всех рабов в профиле, если включено - не покупает новых рабов, не ставит оковы и не выдает работы
 
 ## Флуд в консоль ошибками
 - Error when buying slave, possibly a cooldown. Возможно флуд-контроль на покупку рабов
@@ -86,3 +87,4 @@ nano config.json
 - Добавлены уведомления Telegram
 - Добавлено улучшение рабов
 - Улучшен конфиг и удалена часть мусора со скрипта
+- Добавлена продажа всех рабов в профиле
