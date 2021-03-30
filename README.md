@@ -44,6 +44,9 @@
 ![image](https://i.imgur.com/39dj33O.png)
 - Запустить скрипт
 
+Если же вам лень устанавливать модули и Python вы можете скачать exe файл -
+https://github.com/vuchaev2015/slaves-bot-vk/releases/tag/1.0.4
+
 ## Установка на Android
 - Устанавливаем Termux с Play Market
 - Запускаем Termux
