@@ -3,7 +3,7 @@
   "windows_title": true,
   
   "telegram_settings": {
-    "telegram_notification": true,
+    "telegram_notification": false,
     "telegram_user_id": 575289149,
     "telegram_bot_token": "",
     "telegram_notify_error": {
