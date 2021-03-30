@@ -180,7 +180,7 @@ def saleSlave(slave_id):
     elif response.status_code == 200:
         print(f'Sell: {slave_id}. Price: ' + str(int(userProfile(slave_id)['sale_price']/1.49998088027)))
         if telegram_notifications == True:
-           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Sell: {slave_id}. . Price: " + str(int(userProfile(slave_id)['sale_price']/1.5)))
+           requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_user_id}&text=Sell: {slave_id}. Price: " + str(int(userProfile(slave_id)['sale_price']/1.49998088027)))
     else:
         print(f'Unknown error. Slave: {slave_id}')
         if telegram_notifications == True:
