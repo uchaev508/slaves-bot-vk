@@ -7,12 +7,13 @@
 [Группа ВКонтакте](https://vk.com/club203610366) с чатами, для помощи новичкам
 
 ## Какие настройки присутствуют? Настройка в Config.json
-![image](https://i.imgur.com/g2IMBJh.png)
+![image](https://i.imgur.com/rQW54lb.png)
 - Authorization. Авторизация
 - Windows_title, true/false. Информация реального времени в титл консоли
 - Telegram_notifications, true/false. Уведомления в телеграм
-- Telegram_user_id. ID аккаунт телеграм
+- Telegram_user_id. ID аккаунта телеграм
 - Telegram_bot_token. Токен бота телеграм, получить здесь -> @BotFather
+- Telegram notify error: job_name, buy_slave, buy_fetter, sale_slave, true/false. Ошибки в телеграм бота
 - Min/Max_delay. Рандомизация времени на выдачу цепей, покупку рабов и выдачу названвания работы
 - Job_name. Имя, имена работ
 - Min/Max_price. Минимальная и максимальная цена за которую покупать рабов
@@ -81,3 +82,4 @@ nano config.json
 - Удалили невидимых рабов , т.к они были пофикшены
 - Добавлены уведомления Telegram
 - Добавлено улучшение рабов
+- Улучшен конфиг и удалена часть мусора со скрипта
