@@ -1,6 +1,6 @@
 # slaves-bot-vk
 
-[Бот для мини-игры ВКонтакте "Рабы"](https://vk.com/app7794757) 
+<del>[Бот для мини-игры ВКонтакте "Рабы"](https://vk.com/app7794757)</del> GAME OVER...
 
 [Тема на Lolzteam](https://lolz.guru/threads/2389937/)
 
